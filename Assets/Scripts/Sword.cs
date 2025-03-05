@@ -8,21 +8,22 @@ public class Sword : MonoBehaviour
     [SerializeField]
     private Transform Player;
 
+    
     [SerializeField]
-    private Vector3 m_Offset;
+    private Vector3 OffsetSword;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Offset.x = 0.7f;
-        m_Offset.y = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        transform.position = Player.position + m_Offset;
+         transform.position = Player.position + OffsetSword;
     }
 
     void OnTriggerEnter2D(Collider2D collision) {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int HP = 100;
+
 
     [SerializeField]
     private TextMeshProUGUI textMeshPro;
@@ -54,6 +56,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+
+
+        
 
         if(Input.GetKeyDown(KeyCode.Space)) {
             if(canUseSword) {

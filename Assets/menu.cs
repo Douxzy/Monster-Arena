@@ -3,6 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+        public void Start()
+    {
+            AudioManager.instance.Menu();
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Main");
@@ -17,8 +22,5 @@ public class Menu : MonoBehaviour
     {
         Application.Quit();
     }
-    public void Start()
-    {
-            AudioManager.instance.Menu();
-    }
+
 }

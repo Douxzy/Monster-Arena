@@ -288,6 +288,7 @@ MonoBehaviour:
   Sword: {fileID: 935184261}
   LifeBar: {fileID: 2110304507}
   HP: 100
+  textMeshPro: {fileID: 1198851678}
 --- !u!50 &68773507
 Rigidbody2D:
   serializedVersion: 4
@@ -756,7 +757,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 10, y: 30}
+  m_SizeDelta: {x: 610, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &828463742
 MonoBehaviour:

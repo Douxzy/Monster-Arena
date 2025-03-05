@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +21,9 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private int HP = 100;
+
+    [SerializeField]
+    private TextMeshProUGUI textMeshPro;
 
     void Start()
     {
@@ -59,10 +64,13 @@ public class Player : MonoBehaviour
         m_Rigidbody.MovePosition((Vector2)m_Rigidbody.position + m_Input * moveSpeed * Time.deltaTime);
 
         if(Input.GetKeyDown(KeyCode.O)) {
-            HP -= 25;
-            Vector3 scale = LifeBar.localScale;
-            scale.x = LifeBar.localScale.x - LifeBar.localScale.x / HP;
-            LifeBar.localScale = scale;
+            if (HP > 0) {
+                HP -= 25;
+                Vector3 scale = LifeBar.localScale;
+                scale.x = LifeBar.localScale.x * HP / 100;
+                LifeBar.localScale = scale;
+                textMeshPro.text = HP.ToString();
+            }
         }
 
         

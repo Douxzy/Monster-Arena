@@ -14,13 +14,13 @@ public class Sword : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        m_Offset.x = 0.7f;
+        m_Offset.y = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
 
         transform.position = Player.position + m_Offset;
     }

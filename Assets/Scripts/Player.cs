@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -25,8 +26,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textMeshPro;
 
+    private Vector3 InitializationLocalScale;
+
     void Start()
     {
+
+        InitializationLocalScale = LifeBar.localScale;
 
         Sword.SetActive(false);
         // Récupérer le composant Rigidbody2D une seule fois au démarrage
@@ -67,7 +72,16 @@ public class Player : MonoBehaviour
             if (HP > 0) {
                 HP -= 25;
                 Vector3 scale = LifeBar.localScale;
-                scale.x = LifeBar.localScale.x * HP / 100;
+                scale.x = InitializationLocalScale.x * HP / 100;
+                LifeBar.localScale = scale;
+                textMeshPro.text = HP.ToString();
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.P)) {
+            if (HP < 100) {
+                HP += 25;
+                Vector3 scale = LifeBar.localScale;
+                scale.x = InitializationLocalScale.x * HP / 100;
                 LifeBar.localScale = scale;
                 textMeshPro.text = HP.ToString();
             }

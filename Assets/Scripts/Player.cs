@@ -14,6 +14,12 @@ public class Player : MonoBehaviour
 
     private bool canUseSword = true;
 
+    [SerializeField]
+    private Transform LifeBar;
+
+    [SerializeField]
+    private int HP = 100;
+
     void Start()
     {
 
@@ -51,6 +57,16 @@ public class Player : MonoBehaviour
 
         // Déplacer le Rigidbody2D à la nouvelle position
         m_Rigidbody.MovePosition((Vector2)m_Rigidbody.position + m_Input * moveSpeed * Time.deltaTime);
+
+        if(Input.GetKeyDown(KeyCode.O)) {
+            HP -= 25;
+            Vector3 scale = LifeBar.localScale;
+            scale.x = LifeBar.localScale.x - LifeBar.localScale.x / HP;
+            LifeBar.localScale = scale;
+        }
+
+        
+
     }
 
     

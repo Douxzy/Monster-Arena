@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    private Vector2 m_Input;
+
+    public Animator animator;
     [SerializeField]
     private float moveSpeed = 5f; // Vitesse de déplacement
 
@@ -29,7 +32,6 @@ public class Player : MonoBehaviour
     private TextMeshProUGUI textMeshPro;
 
     private Vector3 InitializationLocalScale;
-
     void Start()
     {
 
@@ -67,9 +69,16 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackDelay());
             }
         }
-
+        
         // Récupérer l'entrée utilisateur
-        Vector2 m_Input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        m_Input.x = Input.GetAxisRaw("Horizontal");
+        m_Input.y = Input.GetAxisRaw("Vertical");
+
+        // Animer utilisateur
+
+        animator.SetFloat("Horizontal", m_Input.x);
+        animator.SetFloat("Vertical", m_Input.y);
+        animator.SetFloat("Speed", m_Input.magnitude);
 
         // Déplacer le Rigidbody2D à la nouvelle position
         m_Rigidbody.MovePosition((Vector2)m_Rigidbody.position + m_Input * moveSpeed * Time.deltaTime);

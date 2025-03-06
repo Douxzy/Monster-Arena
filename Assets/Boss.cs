@@ -92,6 +92,10 @@ public class Boss : MonoBehaviour
         // Vérifier si le joueur est à portée d'attaque
         Vector2 playerPosition = player.transform.position;
         Vector2 playerDirection = (playerPosition - (Vector2)transform.position).normalized;
+        // Faire tourner le boss vers le joueur
+        float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
         float distanceToPlayer = Vector2.Distance(transform.position, playerPosition); // Utilisation de player.transform.position
 
         if (distanceToPlayer < maxRadius){

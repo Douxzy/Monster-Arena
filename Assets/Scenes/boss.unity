@@ -1363,7 +1363,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.2
 --- !u!212 &1855212138
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1576,7 +1576,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.10980392, g: 0.12774862, b: 0.8784314, a: 1}
   m_FlipX: 0
@@ -1798,6 +1798,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9215253324662797005, guid: b79bc38739644464988ddf82283553b5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -8576285936574622329, guid: b79bc38739644464988ddf82283553b5, type: 3}
     - {fileID: -6231776226817049985, guid: b79bc38739644464988ddf82283553b5, type: 3}
@@ -1894,6 +1898,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7986994251332951839, guid: 4bfb4cbf0f27941459df408f49b10f33, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986994251332951839, guid: 4bfb4cbf0f27941459df408f49b10f33, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

@@ -467,6 +467,8 @@ MonoBehaviour:
   warningCircleLifetime: 20
   attackCircleLifetime: 4
   attackCircleAttack: 10
+  healthPointBoss: 100
+  animator: {fileID: 0}
 --- !u!58 &228310728
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -570,12 +572,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1811517634, guid: ba2bad5ea26308f4baaf83f662c0b3c9, type: 3}
+  m_Sprite: {fileID: 1287028364, guid: 1124c09b88a09bc449dfc4e6ab93a433, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.96, y: 0.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -644,6 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 222603893}
   OffsetSword: {x: 0.7, y: 0, z: 0}
+  boss: {fileID: 0}
 --- !u!58 &410162015
 CircleCollider2D:
   m_ObjectHideFlags: 0

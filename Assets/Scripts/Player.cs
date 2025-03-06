@@ -194,6 +194,21 @@ public class Player : MonoBehaviour
             {
                 Debug.LogError("⚠️ Aucun script circle_attack trouvé sur " + other.gameObject.name);
             }
+        } else if (other.CompareTag("bigAttack")) // Remplace par le bon Tag
+        {
+            Debug.Log("Le joueur a été touché par une attaque !");
+
+            BigAttack BigAttackScript = other.GetComponent<BigAttack>();
+
+            if (BigAttackScript != null)
+            {
+                SetHp(BigAttackScript.GetDamage());
+                Debug.Log("Le joueur a perdu " + BigAttackScript.GetDamage() + " HP.");
+            }
+            else
+            {
+                Debug.LogError("⚠️ Aucun script BigAttack trouvé sur " + other.gameObject.name);
+            }
         }
     }
 }

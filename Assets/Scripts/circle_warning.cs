@@ -13,9 +13,6 @@ public class circle_warning : MonoBehaviour
         spawnPosition = transform.position;
         StartCoroutine(SpawnAttackCircle());
     }
-    void SetLifetime(float lifetime){
-        this.lifetime = lifetime;
-    }
     IEnumerator SpawnAttackCircle()
     {
         yield return new WaitForSeconds(lifetime);

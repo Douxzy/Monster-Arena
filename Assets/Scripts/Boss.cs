@@ -6,9 +6,13 @@ public class Boss : MonoBehaviour
 {
     private Rigidbody2D Rigidbody;
     private AudioSource audioSource;
-    
+    float nextBigAttackTime = 0f;
+
+    [SerializeField] private float bigAttackCooldown = 4f;
+
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject warning_circle_generator;
+    [SerializeField] private GameObject warningBigAttack;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isDead = false; // Nouvelle variable pour suivre l'état de mort
 
@@ -57,7 +61,7 @@ public class Boss : MonoBehaviour
 
             if (warning_circle_generator != null)
             {
-                GameObject warning_circle = Instantiate(warning_circle_generator, spawnPosition, Quaternion.identity);
+                Instantiate(warning_circle_generator, spawnPosition, Quaternion.identity);
             }
             else
             {
@@ -90,6 +94,7 @@ public class Boss : MonoBehaviour
         if (player == null || isDead) return; // Si le boss est mort, on arrête
 
         Vector2 playerPosition = player.transform.position;
+
         float distanceToPlayer = Vector2.Distance(transform.position, playerPosition);
 
         if (distanceToPlayer < maxRadius)
@@ -99,6 +104,11 @@ public class Boss : MonoBehaviour
         if (distanceToPlayer < DetectionRange && canMove)
         {
             MoveToPlayer((playerPosition - (Vector2)transform.position).normalized);
+            if (Time.time >= nextBigAttackTime && phase == 1 && warningBigAttack != null)
+            {
+                Instantiate(warningBigAttack, playerPosition, Quaternion.identity);
+                nextBigAttackTime = Time.time + bigAttackCooldown; // Définir le prochain temps d'exécution
+            }
         }
     }
 

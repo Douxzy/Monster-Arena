@@ -21,6 +21,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private float warningCircleLifetime = 20f;
     [SerializeField] private float attackCircleLifetime = 4f;
     [SerializeField] private float attackCircleAttack = 10f;
+    public Animator animator;
 
     void Start()
     {
@@ -87,6 +88,8 @@ public class Boss : MonoBehaviour
 
     void Update()
     {
+        
+
         if (player == null) return; // Si le joueur n'existe pas, on arrête
 
         // Vérifier si le joueur est à portée d'attaque
@@ -94,7 +97,7 @@ public class Boss : MonoBehaviour
         Vector2 playerDirection = (playerPosition - (Vector2)transform.position).normalized;
         // Faire tourner le boss vers le joueur
         float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerPosition); // Utilisation de player.transform.position
 

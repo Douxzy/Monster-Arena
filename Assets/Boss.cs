@@ -11,7 +11,6 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject warning_circle_generator; // Assigner dans l'inspecteur !
     [SerializeField] private bool isAttacking = false;
 
-    [SerializeField] private int att = 10; // Dégâts infligés par l'attaque
     [SerializeField] private int HPONE = 500;
     [SerializeField] private int HPTWO = 1500;
     [SerializeField] private int phase = 0;
@@ -20,15 +19,10 @@ public class Boss : MonoBehaviour
     [SerializeField] private float maxRadius = 5f; // Distance maximum du boss
     [SerializeField] private int circleCount = 10;
     [SerializeField] private float attackCooldown = 3f;
-    [SerializeField] private float BaseAttackCooldown = 4f;
-    [SerializeField] private float BaseAttackRange = 2f; // Distance à laquelle le boss peut attaquer le joueur
+ 
     [SerializeField] private float DetectionRange = 10f;
     [SerializeField] public float moveSpeed = 20f;
     [SerializeField] private bool canMove = true;
-    [SerializeField] private bool canAttack = true; // Pour gérer le cooldown entre deux attaques
-    [SerializeField] private float warningCircleLifetime = 20f;
-    [SerializeField] private float attackCircleLifetime = 4f;
-    [SerializeField] private float attackCircleAttack = 10f;
 
     public Animator animator;
 
@@ -108,10 +102,6 @@ public class Boss : MonoBehaviour
         {
             StartCoroutine(GenerateCircles());
         }
-        if (distanceToPlayer < BaseAttackRange)
-        {
-            AttackPlayer();
-        }
         if (distanceToPlayer < DetectionRange && canMove)
         {
             MoveToPlayer(playerDirection);
@@ -123,18 +113,6 @@ public class Boss : MonoBehaviour
         Rigidbody.MovePosition((Vector2)Rigidbody.position + playerDirection * moveSpeed * Time.deltaTime);
     }
 
-    void AttackPlayer()
-    {
-        // Infliger des dégâts au joueur
-        StartCoroutine(AttackCooldown());
-    }
-
-    IEnumerator AttackCooldown()
-    {
-        canAttack = false;
-        yield return new WaitForSeconds(BaseAttackCooldown);
-        canAttack = true;
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {

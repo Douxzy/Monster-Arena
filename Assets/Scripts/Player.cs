@@ -7,7 +7,7 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerR : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private Vector2 m_Input;
 

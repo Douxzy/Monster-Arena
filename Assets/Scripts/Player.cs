@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
         Debug.Log("Game Over !");
         moveSpeed = 0;
         this.enabled = false;
-        
+        animator.SetTrigger("IsDead");
         yield return new WaitForSeconds(2f); // Attendre 2 secondes avant de charger la scène
         
         SceneManager.LoadScene("GameOver");

@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     private Transform LifeBar;
 
     [SerializeField]
+    private int att  = 100;
+
+    [SerializeField]
     private int HP = 100;
 
 
@@ -120,12 +123,12 @@ public class Player : MonoBehaviour
         Debug.Log("CC");
         animator.SetBool("Attack", true);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         animator.SetBool("Attack", false);
         Sword.SetActive(false);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         canUseSword = true;
     }
@@ -152,6 +155,11 @@ public class Player : MonoBehaviour
             GameOver();
         }
     }
+    public int GetAttack()
+    {
+        return this.att;
+    }
+
     IEnumerator GameOverRoutine()
     {
         Debug.Log("Game Over !");

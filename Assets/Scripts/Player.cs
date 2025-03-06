@@ -165,7 +165,12 @@ public class PlayerR : MonoBehaviour
     {
         StartCoroutine(GameOverRoutine());
     }
-
+    
+    public int GetAttack()
+    {
+        return this.att;
+    }
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision détectée avec : " + other.gameObject.name);

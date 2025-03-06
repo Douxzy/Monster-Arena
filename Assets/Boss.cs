@@ -4,6 +4,8 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     private Rigidbody2D Rigidbody;
+    private AudioSource audioSource;
+    
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject warning_circle_generator; // Assigner dans l'inspecteur !
     [SerializeField] private bool isAttacking = false;
@@ -32,7 +34,7 @@ public class Boss : MonoBehaviour
     void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
-
+        audioSource = GetComponent<AudioSource>();
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player"); // Trouve le joueur si non assigné
 
@@ -137,7 +139,9 @@ public class Boss : MonoBehaviour
     {
         if (collision.CompareTag("Sword"))
         {
+            audioSource.Play();
             getHit();
+              
         }
     }
 

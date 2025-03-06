@@ -153,8 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9aac05c48ccb49ae876f072ed0e62f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1855212139}
-  m_Offset: {x: 0, y: 0, z: -1}
 --- !u!81 &25015720
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1301,7 +1299,6 @@ MonoBehaviour:
   player: {fileID: 1855212133}
   warning_circle_generator: {fileID: 1974892609409670709, guid: 4bfb4cbf0f27941459df408f49b10f33, type: 3}
   isAttacking: 0
-  att: 10
   HPONE: 500
   HPTWO: 1500
   phase: 0
@@ -1309,15 +1306,9 @@ MonoBehaviour:
   maxRadius: 10
   circleCount: 30
   attackCooldown: 0.1
-  BaseAttackCooldown: 2
-  BaseAttackRange: 2
   DetectionRange: 10
   moveSpeed: 1
   canMove: 1
-  canAttack: 1
-  warningCircleLifetime: 20
-  attackCircleLifetime: 4
-  attackCircleAttack: 10
   animator: {fileID: 0}
 --- !u!58 &1657252242
 CircleCollider2D:
@@ -1422,15 +1413,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 1811517634, guid: ba2bad5ea26308f4baaf83f662c0b3c9, type: 3}
+  m_Sprite: {fileID: -648099933, guid: 1124c09b88a09bc449dfc4e6ab93a433, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.96, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1657252245

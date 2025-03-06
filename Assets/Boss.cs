@@ -155,6 +155,14 @@ public class Boss : MonoBehaviour
        
     }
 
+    IEnumerator deathBoss()
+    {
+        animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(1.5f);
+        // StartCoroutine(deathBoss()); pour l'appeller dans une fonction
+    }
+
+
     bool willHaveHp(int att, int hp)
     {
         if (hp - att <= 0)

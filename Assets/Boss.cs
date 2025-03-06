@@ -21,6 +21,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private float warningCircleLifetime = 20f;
     [SerializeField] private float attackCircleLifetime = 4f;
     [SerializeField] private float attackCircleAttack = 10f;
+    [SerializeField] private int healthPointBoss = 100;
     public Animator animator;
 
     void Start()
@@ -121,7 +122,7 @@ public class Boss : MonoBehaviour
     {
         // Infliger des dégâts au joueur
 
-        Debug.Log("Le boss a infligé " + att + " dégâts au joueur.");
+        //Debug.Log("Le boss a infligé " + att + " dégâts au joueur.");
 
         // Démarrer le cooldown pour éviter les attaques trop fréquentes
         StartCoroutine(AttackCooldown());
@@ -132,6 +133,28 @@ public class Boss : MonoBehaviour
         canAttack = false;
         yield return new WaitForSeconds(BaseAttackCooldown);
         canAttack = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Sword")
+        {
+            RecieveAttack();
+        }
+    }
+
+    public void RecieveAttack()
+    {
+        int attack = 5;
+        if(healthPointBoss >= attack)
+        {
+            healthPointBoss -= attack;
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHBH");
+        } else
+        {
+            // changer de scene vers win game
+        }
+        
     }
 }
 

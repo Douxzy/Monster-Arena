@@ -12,6 +12,9 @@ public class Sword : MonoBehaviour
     [SerializeField]
     private Vector3 OffsetSword;
 
+    [SerializeField]
+    private GameObject boss;
+
 
 
     // Start is called before the first frame update
@@ -24,9 +27,5 @@ public class Sword : MonoBehaviour
     void Update()
     {
          transform.position = Player.position + OffsetSword;
-    }
-
-    void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("Hit");
     }
 }

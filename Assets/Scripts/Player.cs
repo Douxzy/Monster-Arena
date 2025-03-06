@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
     IEnumerator AttackDelay()
     {
         Sword.SetActive(true);
+        Debug.Log("CC");
 
         yield return new WaitForSeconds(1);
         

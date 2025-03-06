@@ -153,8 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9aac05c48ccb49ae876f072ed0e62f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1855212139}
-  m_Offset: {x: 0, y: 0, z: -1}
 --- !u!81 &25015720
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1430,8 +1428,8 @@ MonoBehaviour:
   isAttacking: 0
   att: 4
   minRadius: 2
-  maxRadius: 20
-  circleCount: 50
+  maxRadius: 10
+  circleCount: 30
   attackCooldown: 0.1
   BaseAttackCooldown: 2
   BaseAttackRange: 2

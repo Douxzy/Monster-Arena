@@ -118,12 +118,14 @@ public class PlayerR : MonoBehaviour
     {
         Sword.SetActive(true);
         Debug.Log("CC");
+        animator.SetBool("Attack", true);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
+        animator.SetBool("Attack", false);
         Sword.SetActive(false);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         canUseSword = true;
     }
@@ -165,12 +167,7 @@ public class PlayerR : MonoBehaviour
     {
         StartCoroutine(GameOverRoutine());
     }
-    
-    public int GetAttack()
-    {
-        return this.att;
-    }
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision détectée avec : " + other.gameObject.name);

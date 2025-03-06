@@ -15,10 +15,10 @@ public class Boss : MonoBehaviour
     [SerializeField] private int HPTWO = 1500;
     [SerializeField] private int phase = 0;
 
-    [SerializeField] private float minRadius = 1f; // Distance minimum du boss
+    [SerializeField] private float minRadius = 2f; // Distance minimum du boss
     [SerializeField] private float maxRadius = 5f; // Distance maximum du boss
-    [SerializeField] private int circleCount = 20;
-    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private int circleCount = 10;
+    [SerializeField] private float attackCooldown = 3f;
     [SerializeField] private float BaseAttackCooldown = 4f;
     [SerializeField] private float BaseAttackRange = 2f; // Distance à laquelle le boss peut attaquer le joueur
     [SerializeField] private float DetectionRange = 10f;
@@ -155,8 +155,8 @@ public class Boss : MonoBehaviour
             {
                 HPONE = 0;  
                 phase += 1;
-                attackCooldown = 0.06f;  // Passer à la phase suivante
-
+                attackCooldown = 0.02f;  // Passer à la phase suivante
+                circleCount = 30;
                 return;
             }
             HPONE -= playerAtt; // Réduire les HP en fonction des dégâts du joueur

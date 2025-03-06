@@ -17,7 +17,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private float maxRadius = 5f; // Distance maximum du boss
     [SerializeField] private int circleCount = 20;
     [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float BaseAttackCooldown = 2f;
+    [SerializeField] private float BaseAttackCooldown = 4f;
     [SerializeField] private float BaseAttackRange = 2f; // Distance à laquelle le boss peut attaquer le joueur
     [SerializeField] private float DetectionRange = 10f;
     [SerializeField] public float moveSpeed = 20f;

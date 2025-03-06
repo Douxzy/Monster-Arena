@@ -196,8 +196,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 2
-  field of view: 142
-  orthographic: 1
+  field of view: 150
+  orthographic: 0
   orthographic size: 7
   m_Depth: -1
   m_CullingMask:
@@ -528,7 +528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 0, y: -1000}
   m_SizeDelta: {x: 610, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &253534825
@@ -1428,7 +1428,10 @@ MonoBehaviour:
   player: {fileID: 1855212133}
   warning_circle_generator: {fileID: 1974892609409670709, guid: 4bfb4cbf0f27941459df408f49b10f33, type: 3}
   isAttacking: 0
-  att: 4
+  att: 10
+  HPONE: 500
+  HPTWO: 1500
+  phase: 0
   minRadius: 2
   maxRadius: 10
   circleCount: 30
@@ -1442,8 +1445,6 @@ MonoBehaviour:
   warningCircleLifetime: 20
   attackCircleLifetime: 4
   attackCircleAttack: 10
-  healthPointBoss: 100
-  Hit: {fileID: 210759778}
   animator: {fileID: 0}
 --- !u!58 &1657252242
 CircleCollider2D:
@@ -1620,10 +1621,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1855212139}
   - component: {fileID: 1855212138}
-  - component: {fileID: 1855212137}
   - component: {fileID: 1855212136}
   - component: {fileID: 1855212135}
   - component: {fileID: 1855212134}
+  - component: {fileID: 1855212140}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1668,6 +1669,7 @@ MonoBehaviour:
   moveSpeed: 5
   Sword: {fileID: 829494919}
   LifeBar: {fileID: 1156770110}
+  att: 100
   HP: 100
   textMeshPro: {fileID: 208326371}
 --- !u!50 &1855212136
@@ -1697,41 +1699,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &1855212137
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1855212133}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.2
 --- !u!212 &1855212138
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1800,6 +1767,41 @@ Transform:
   - {fileID: 829494923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1855212140
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855212133}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.01, y: 0}
+  m_Size: {x: 0.093, y: 0.15}
+  m_Direction: 0
 --- !u!1 &1910072929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,6 +1981,18 @@ PrefabInstance:
     - target: {fileID: 4522809702252959597, guid: b79bc38739644464988ddf82283553b5, type: 3}
       propertyPath: m_Name
       value: att_circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445440643693216883, guid: b79bc38739644464988ddf82283553b5, type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445440643693216883, guid: b79bc38739644464988ddf82283553b5, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445440643693216883, guid: b79bc38739644464988ddf82283553b5, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 9215253324662797005, guid: b79bc38739644464988ddf82283553b5, type: 3}
       propertyPath: m_Sprite

@@ -60,10 +60,6 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-
-
-        
-
         if(Input.GetKeyDown(KeyCode.Space)) {
             if(canUseSword) {
                 canUseSword = false;
@@ -83,31 +79,52 @@ public class Player : MonoBehaviour
 
         // Déplacer le Rigidbody2D à la nouvelle position
         m_Rigidbody.MovePosition((Vector2)m_Rigidbody.position + m_Input * moveSpeed * Time.deltaTime);
-
-        if(Input.GetKeyDown(KeyCode.O)) {
-            if (HP > 0) {
-                HP -= 25;
-                Vector3 scale = LifeBar.localScale;
-                scale.x = InitializationLocalScale.x * HP / 100;
-                LifeBar.localScale = scale;
-                textMeshPro.text = HP.ToString();
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.P)) {
-            if (HP < 100) {
-                HP += 25;
-                Vector3 scale = LifeBar.localScale;
-                scale.x = InitializationLocalScale.x * HP / 100;
-                LifeBar.localScale = scale;
-                textMeshPro.text = HP.ToString();
-            }
-        }
-
-        
-
     }
 
-    
+    void SetHp(int damage)
+    {
+        int predictHp = this.HP - damage;
 
-    
+        if (predictHp <= 0)
+        {
+            this.HP = 0;
+        }
+        else
+        {
+            this.HP = predictHp;
+        }
+        Vector3 scale = LifeBar.localScale;
+        scale.x = InitializationLocalScale.x * HP / 100;
+        LifeBar.localScale = scale;
+        textMeshPro.text = HP.ToString();
+        if(HP == 0)
+        {
+            GameOver();
+        }
+    }
+    void GameOver()
+    {
+
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collision détectée avec : " + other.gameObject.name);
+
+        if (other.CompareTag("attackCircle")) // Remplace par le bon Tag
+        {
+            Debug.Log("Le joueur a été touché par une attaque !");
+
+            circle_attack attackScript = other.GetComponent<circle_attack>();
+
+            if (attackScript != null)
+            {
+                SetHp(attackScript.GetDamage());
+                Debug.Log("Le joueur a perdu " + attackScript.GetDamage() + " HP.");
+            }
+            else
+            {
+                Debug.LogError("⚠️ Aucun script circle_attack trouvé sur " + other.gameObject.name);
+            }
+        }
+    }
 }

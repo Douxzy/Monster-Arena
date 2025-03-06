@@ -5,17 +5,16 @@ using UnityEngine;
 public class circle_attack : MonoBehaviour
 {
     [SerializeField]
-    private float damageAmount = 10f;  // Dégâts infligés par le cercle
+    private int damageAmount = 10;  // Dégâts infligés par le cercle
     [SerializeField]
     private float lifetime = 1f;
     // Start is called before the first frame update
-   void SetLifetime(float lifetime){
-    this.lifetime = lifetime;
-   }
-   void SetDamage(float damageAmount){
-    this.damageAmount = damageAmount;
-   }
    
+    public int GetDamage()
+    {
+        return damageAmount;
+    }
+
     void Start()
     {
         Destroy(gameObject, lifetime);

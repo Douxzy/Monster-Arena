@@ -5,8 +5,9 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class PlayerR : MonoBehaviour
 {
     private Vector2 m_Input;
 
@@ -149,10 +150,22 @@ public class Player : MonoBehaviour
             GameOver();
         }
     }
+    IEnumerator GameOverRoutine()
+    {
+        Debug.Log("Game Over !");
+        moveSpeed = 0;
+        this.enabled = false;
+        
+        yield return new WaitForSeconds(2f); // Attendre 2 secondes avant de charger la scène
+        
+        SceneManager.LoadScene("GameOver");
+    }
+
     void GameOver()
     {
-
+        StartCoroutine(GameOverRoutine());
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision détectée avec : " + other.gameObject.name);

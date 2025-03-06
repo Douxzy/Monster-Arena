@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    private AudioSource audioSource;
     private Vector2 m_Input;
 
     public Animator animator;
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour
     private Vector3 InitializationLocalScale;
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         InitializationLocalScale = LifeBar.localScale;
 
         Sword.SetActive(false);
@@ -49,11 +50,24 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Récupérer l'entrée utilisateur
+        m_Input.x = Input.GetAxisRaw("Horizontal");
+        m_Input.y = Input.GetAxisRaw("Vertical");
 
+        // Animer utilisateur
+
+        animator.SetFloat("Horizontal", m_Input.x);
+        animator.SetFloat("Vertical", m_Input.y);
+        animator.SetFloat("Speed", m_Input.magnitude);
+
+        // Déplacer le Rigidbody2D à la nouvelle position
+        m_Rigidbody.MovePosition((Vector2)m_Rigidbody.position + m_Input * moveSpeed * Time.deltaTime);
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (canUseSword)
             {
+                animator.SetBool("Attack", true);
                 canUseSword = false;
                 StartCoroutine(AttackDelay());
             }
@@ -88,23 +102,11 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             if(canUseSword) {
+                animator.SetBool("Attack", true);
                 canUseSword = false;
                 StartCoroutine(AttackDelay());
             }
         }
-        
-        // Récupérer l'entrée utilisateur
-        m_Input.x = Input.GetAxisRaw("Horizontal");
-        m_Input.y = Input.GetAxisRaw("Vertical");
-
-        // Animer utilisateur
-
-        animator.SetFloat("Horizontal", m_Input.x);
-        animator.SetFloat("Vertical", m_Input.y);
-        animator.SetFloat("Speed", m_Input.magnitude);
-
-        // Déplacer le Rigidbody2D à la nouvelle position
-        m_Rigidbody.MovePosition((Vector2)m_Rigidbody.position + m_Input * moveSpeed * Time.deltaTime);
     }
 
     void UpdateSwordOffset(Vector3 offset)
@@ -120,7 +122,7 @@ public class Player : MonoBehaviour
     {
         Sword.SetActive(true);
         Debug.Log("CC");
-        animator.SetBool("Attack", true);
+        audioSource.Play();
 
         yield return new WaitForSeconds(0.1f);
 

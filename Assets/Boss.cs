@@ -26,6 +26,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private bool canMove = true;
 
     [SerializeField] public Animator animator;
+    [SerializeField] public AudioSource victory;
 
     void Start()
     {
@@ -160,6 +161,7 @@ public class Boss : MonoBehaviour
         }
 
         animator.SetBool("Dead", true);
+        victory.Play();
         yield return new WaitForSeconds(10f);
         Destroy(gameObject);
         SceneManager.LoadScene("Credit");

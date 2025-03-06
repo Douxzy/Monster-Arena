@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9aac05c48ccb49ae876f072ed0e62f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  m_Offset: {x: 0, y: 0, z: 0}
+  Player: {fileID: 1855212139}
+  m_Offset: {x: 0, y: 0, z: -1}
 --- !u!81 &25015720
 AudioListener:
   m_ObjectHideFlags: 0
@@ -196,9 +196,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 2
-  field of view: 60
+  field of view: 142
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

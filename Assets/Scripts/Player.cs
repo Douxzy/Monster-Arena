@@ -67,7 +67,6 @@ public class Player : MonoBehaviour
         {
             if (canUseSword)
             {
-                animator.SetBool("Attack", true);
                 canUseSword = false;
                 StartCoroutine(AttackDelay());
             }
@@ -102,7 +101,6 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             if(canUseSword) {
-                animator.SetBool("Attack", true);
                 canUseSword = false;
                 StartCoroutine(AttackDelay());
             }
@@ -121,7 +119,7 @@ public class Player : MonoBehaviour
     IEnumerator AttackDelay()
     {
         Sword.SetActive(true);
-        Debug.Log("CC");
+        animator.SetBool("Attack", true);
         audioSource.Play();
 
         yield return new WaitForSeconds(0.1f);

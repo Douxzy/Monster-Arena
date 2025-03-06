@@ -5,7 +5,7 @@ public class Menu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Boss");
     }
 
     public void Option()

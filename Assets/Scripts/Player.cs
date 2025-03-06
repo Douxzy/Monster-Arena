@@ -42,25 +42,48 @@ public class Player : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    IEnumerator AttackDelay()
-    {
-        Sword.SetActive(true);
-        Debug.Log("CC");
-
-        yield return new WaitForSeconds(1);
-        
-        Sword.SetActive(false);
-
-        yield return new WaitForSeconds(1);
-
-
-        canUseSword = true;
-    }
+    
 
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (canUseSword)
+            {
+                canUseSword = false;
+                StartCoroutine(AttackDelay());
+            }
+        }
+
+        // Vérifier les touches pour modifier l'offset en temps réel
+        Vector3 swordOffset = new Vector3(0f, 0f, 0f);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            swordOffset.x = 0.6f;
+            swordOffset.y = 0f;
+            UpdateSwordOffset(swordOffset);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            swordOffset.x = -0.6f;
+            swordOffset.y = 0f;
+            UpdateSwordOffset(swordOffset);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            swordOffset.x = 0f;
+            swordOffset.y = -0.6f;
+            UpdateSwordOffset(swordOffset);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            swordOffset.x = 0f;
+            swordOffset.y = 0.6f;
+            UpdateSwordOffset(swordOffset);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
             if(canUseSword) {
                 canUseSword = false;
                 StartCoroutine(AttackDelay());
@@ -80,6 +103,30 @@ public class Player : MonoBehaviour
         // Déplacer le Rigidbody2D à la nouvelle position
         m_Rigidbody.MovePosition((Vector2)m_Rigidbody.position + m_Input * moveSpeed * Time.deltaTime);
     }
+
+    void UpdateSwordOffset(Vector3 offset)
+    {
+        Sword swordScript = Sword.GetComponent<Sword>();
+        if (swordScript != null)
+        {
+            swordScript.setOffset(offset);
+        }
+    }
+
+    IEnumerator AttackDelay()
+    {
+        Sword.SetActive(true);
+        Debug.Log("CC");
+
+        yield return new WaitForSeconds(1);
+
+        Sword.SetActive(false);
+
+        yield return new WaitForSeconds(1);
+
+        canUseSword = true;
+    }
+
 
     void SetHp(int damage)
     {

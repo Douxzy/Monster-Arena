@@ -9,13 +9,17 @@ public class Sword : MonoBehaviour
     private Transform Player;
 
     
-    [SerializeField]
-    private Vector3 OffsetSword;
+    
+    private Vector3 OffsetSword = new Vector3(0f,0f,0f);
 
     [SerializeField]
     private GameObject boss;
 
-
+    public void setOffset(Vector3 offset)
+    {
+        OffsetSword = offset;
+        Debug.Log("OffsetSword mis à jour : " + OffsetSword);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +30,13 @@ public class Sword : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         transform.position = Player.position + OffsetSword;
+
+        
+
+        Debug.Log(OffsetSword);
+        transform.position = Player.position + OffsetSword;
     }
+
+
+    
 }

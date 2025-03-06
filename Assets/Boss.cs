@@ -22,10 +22,14 @@ public class Boss : MonoBehaviour
     [SerializeField] private float attackCircleLifetime = 4f;
     [SerializeField] private float attackCircleAttack = 10f;
     [SerializeField] private int healthPointBoss = 100;
+    [SerializeField] private AudioSource Hit;
+
     public Animator animator;
 
     void Start()
     {
+        
+
         Rigidbody = GetComponent<Rigidbody2D>();
         
         if (player == null)
@@ -97,8 +101,8 @@ public class Boss : MonoBehaviour
         Vector2 playerPosition = player.transform.position;
         Vector2 playerDirection = (playerPosition - (Vector2)transform.position).normalized;
         // Faire tourner le boss vers le joueur
-        float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        // float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
+        // transform.rotation = Quaternion.Euler(0, 0, angle - 90);
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerPosition); // Utilisation de player.transform.position
 
@@ -148,8 +152,10 @@ public class Boss : MonoBehaviour
         int attack = 5;
         if(healthPointBoss >= attack)
         {
+            Hit.Play();
             healthPointBoss -= attack;
             Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHBH");
+            
         } else
         {
             // changer de scene vers win game

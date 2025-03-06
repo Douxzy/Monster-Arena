@@ -22,6 +22,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private float attackCircleLifetime = 4f;
     [SerializeField] private float attackCircleAttack = 10f;
     [SerializeField] private int healthPointBoss = 100;
+    private int waves = 0;
     [SerializeField] private AudioSource Hit;
 
     public Animator animator;
@@ -149,16 +150,24 @@ public class Boss : MonoBehaviour
 
     public void RecieveAttack()
     {
-        int attack = 5;
-        if(healthPointBoss >= attack)
+        int attack = 50;
+        if(healthPointBoss > 0)
         {
             Hit.Play();
             healthPointBoss -= attack;
             Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHBH");
             
-        } else
+        } 
+        else
         {
-            // changer de scene vers win game
+            if(waves == 1)
+            {
+                // changer de scene vers win game
+            } else
+            {
+                waves += 1;
+                healthPointBoss = 1500;
+            }
         }
         
     }

@@ -9,7 +9,7 @@ AnimatorState:
   m_PrefabAsset: {fileID: 0}
   m_Name: BossDeath
   m_Speed: 1
-  m_CycleOffset: 0
+  m_CycleOffset: 1
   m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
@@ -23,7 +23,7 @@ AnimatorState:
   m_Motion: {fileID: 7400000, guid: cf788f09ee81fdfd695be9b7c7c0e8a3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
-  m_MirrorParameter: 
+  m_MirrorParameter: Dead
   m_CycleOffsetParameter: 
   m_TimeParameter: 
 --- !u!1107 &-3145347082198401685

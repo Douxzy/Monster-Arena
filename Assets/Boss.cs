@@ -8,15 +8,16 @@ public class Boss : MonoBehaviour
     private AudioSource audioSource;
     
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject warning_circle_generator; // Assigner dans l'inspecteur !
+    [SerializeField] private GameObject warning_circle_generator;
     [SerializeField] private bool isAttacking = false;
+    [SerializeField] private bool isDead = false; // Nouvelle variable pour suivre l'état de mort
 
     [SerializeField] private int HPONE = 500;
     [SerializeField] private int HPTWO = 1500;
     [SerializeField] private int phase = 0;
 
-    [SerializeField] private float minRadius = 2f; // Distance minimum du boss
-    [SerializeField] private float maxRadius = 5f; // Distance maximum du boss
+    [SerializeField] private float minRadius = 2f;
+    [SerializeField] private float maxRadius = 5f;
     [SerializeField] private int circleCount = 10;
     [SerializeField] private float attackCooldown = 3f;
  
@@ -24,31 +25,33 @@ public class Boss : MonoBehaviour
     [SerializeField] public float moveSpeed = 20f;
     [SerializeField] private bool canMove = true;
 
-    public Animator animator;
+    [SerializeField] public Animator animator;
 
     void Start()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player"); // Trouve le joueur si non assigné
+            player = GameObject.FindGameObjectWithTag("Player");
 
         if (warning_circle_generator == null)
         {
             Debug.LogError("warning_circle_generator n'est pas assigné dans l'inspecteur !");
-            return; // Arrêter si le prefab n'est pas assigné
+            return;
         }
     }
 
     IEnumerator GenerateCircles()
     {
-        if (isAttacking) yield break;
+        if (isAttacking || isDead) yield break; // Ne pas attaquer si le boss est mort
         isAttacking = true;
 
         Debug.Log("Début de l'attaque !");
 
         for (int i = 0; i < circleCount; i++)
         {
+            if (isDead) yield break; // Arrêter la génération si le boss est mort
+
             Vector2 spawnPosition = GetValidSpawnPosition();
 
             if (warning_circle_generator != null)
@@ -63,40 +66,30 @@ public class Boss : MonoBehaviour
             yield return new WaitForSeconds(attackCooldown);
         }
 
-        isAttacking = false; // ✅ Maintenant bien placé, après la boucle for
+        isAttacking = false;
     }
 
     Vector2 GetValidSpawnPosition()
     {
-        for (int attempt = 0; attempt < 10; attempt++) // Essayer 10 fois de trouver une position valide
+        for (int attempt = 0; attempt < 10; attempt++)
         {
-            Vector2 direction = Random.insideUnitCircle.normalized; // Générer une direction aléatoire
+            Vector2 direction = Random.insideUnitCircle.normalized;
+            if (direction == Vector2.zero) continue;
 
-            if (direction == Vector2.zero) // Éviter le cas (0,0)
-                continue;
-
-            float distance = Random.Range(minRadius, maxRadius); // Sélectionner une distance aléatoire
-            Vector2 randomPosition = (Vector2)transform.position + (direction * distance); // Calcul de la position
-
-            return randomPosition; // Retourner la première position valide trouvée
+            float distance = Random.Range(minRadius, maxRadius);
+            Vector2 randomPosition = (Vector2)transform.position + (direction * distance);
+            return randomPosition;
         }
 
-        // Si après 10 tentatives aucune position correcte n'a été trouvée, en générer une dernière de secours
         return (Vector2)transform.position + (Random.insideUnitCircle.normalized * minRadius);
     }
 
     void Update()
     {
-        if (player == null) return; // Si le joueur n'existe pas, on arrête
+        if (player == null || isDead) return; // Si le boss est mort, on arrête
 
-        // Vérifier si le joueur est à portée d'attaque
         Vector2 playerPosition = player.transform.position;
-        Vector2 playerDirection = (playerPosition - (Vector2)transform.position).normalized;
-        // Faire tourner le boss vers le joueur
-        //float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.Euler(0, 0, angle - 90);
-
-        float distanceToPlayer = Vector2.Distance(transform.position, playerPosition); // Utilisation de player.transform.position
+        float distanceToPlayer = Vector2.Distance(transform.position, playerPosition);
 
         if (distanceToPlayer < maxRadius)
         {
@@ -104,28 +97,29 @@ public class Boss : MonoBehaviour
         }
         if (distanceToPlayer < DetectionRange && canMove)
         {
-            MoveToPlayer(playerDirection);
+            MoveToPlayer((playerPosition - (Vector2)transform.position).normalized);
         }
     }
 
     void MoveToPlayer(Vector2 playerDirection)
     {
+        if (isDead) return; // Ne pas bouger si le boss est mort
         Rigidbody.MovePosition((Vector2)Rigidbody.position + playerDirection * moveSpeed * Time.deltaTime);
     }
 
-
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Sword"))
+        if (collision.CompareTag("Sword") && !isDead) // Ne pas appliquer de dégâts si le boss est mort
         {
             audioSource.Play();
             getHit();
-              
         }
     }
 
     public void getHit()
     {
+        if (isDead) return; // Si le boss est déjà en train de mourir, on ne fait rien
+
         int playerAtt = player.GetComponent<Player>().GetAttack();
 
         if (phase == 0)
@@ -134,11 +128,11 @@ public class Boss : MonoBehaviour
             {
                 HPONE = 0;  
                 phase += 1;
-                attackCooldown = 0.02f;  // Passer à la phase suivante
+                attackCooldown = 0.02f;
                 circleCount = 30;
                 return;
             }
-            HPONE -= playerAtt; // Réduire les HP en fonction des dégâts du joueur
+            HPONE -= playerAtt;
         }
         else if (phase == 1)
         {
@@ -146,29 +140,33 @@ public class Boss : MonoBehaviour
             {
                 HPTWO = 0;
                 phase += 1;
-                Destroy(gameObject);
-                SceneManager.LoadScene("Credit");
+                isDead = true; // Marquer le boss comme mort
+                StartCoroutine(deathBoss());
                 return;
             }
-            HPTWO -= playerAtt; // Réduire les HP en fonction des dégâts du joueur
+            HPTWO -= playerAtt;
         }
-       
     }
 
     IEnumerator deathBoss()
     {
-        animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(1.5f);
-        // StartCoroutine(deathBoss()); pour l'appeller dans une fonction
-    }
+        canMove = false;
+        isAttacking = false;
 
+        if (Rigidbody != null)
+        {
+            Rigidbody.velocity = Vector2.zero;
+            Rigidbody.isKinematic = true;
+        }
+
+        animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(10f);
+        Destroy(gameObject);
+        SceneManager.LoadScene("Credit");
+    }
 
     bool willHaveHp(int att, int hp)
     {
-        if (hp - att <= 0)
-        {
-            return false;  // Le boss n'a plus de HP
-        }
-        return true;  // Il reste encore des HP
+        return hp - att > 0;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -168,6 +169,7 @@ public class Boss : MonoBehaviour
                 HPTWO = 0;
                 phase += 1;
                 Destroy(gameObject);
+                SceneManager.LoadScene("Credit");
                 return;
             }
             HPTWO -= playerAtt; // Réduire les HP en fonction des dégâts du joueur

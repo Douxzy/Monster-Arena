@@ -119,12 +119,11 @@ public class Player : MonoBehaviour
     IEnumerator AttackDelay()
     {
         Sword.SetActive(true);
-        animator.SetBool("Attack", true);
+        animator.SetTrigger("Attack");
         audioSource.Play();
 
         yield return new WaitForSeconds(0.1f);
 
-        animator.SetBool("Attack", false);
         Sword.SetActive(false);
 
         yield return new WaitForSeconds(0.1f);

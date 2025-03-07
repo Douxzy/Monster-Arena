@@ -31,6 +31,9 @@ public class Boss : MonoBehaviour
 
     [SerializeField] public Animator animator;
     [SerializeField] public AudioSource victory;
+    [SerializeField] public AudioSource BossPhase1;
+    [SerializeField] public AudioSource BossPhase2;
+    [SerializeField] public AudioSource TheRoch;
 
     void Start()
     {
@@ -44,6 +47,9 @@ public class Boss : MonoBehaviour
             Debug.LogError("warning_circle_generator n'est pas assigné dans l'inspecteur !");
             return;
         }
+        BossPhase1.loop = true;
+        BossPhase1.volume = 0.5f;
+        BossPhase1.Play();
     }
 
     IEnumerator GenerateCircles()
@@ -141,6 +147,11 @@ public class Boss : MonoBehaviour
                 phase += 1;
                 attackCooldown = 0.02f;
                 circleCount = 30;
+                BossPhase1.Stop();
+                BossPhase2.loop = true;
+                BossPhase2.volume = 0.5f;
+                BossPhase2.Play();
+                TheRoch.Play();
                 return;
             }
             HPONE -= playerAtt;
@@ -171,6 +182,7 @@ public class Boss : MonoBehaviour
         }
 
         animator.SetBool("Dead", true);
+        BossPhase2.Stop();
         victory.Play();
         yield return new WaitForSeconds(10f);
         Destroy(gameObject);

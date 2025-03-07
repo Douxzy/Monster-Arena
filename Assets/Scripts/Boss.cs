@@ -145,7 +145,7 @@ public class Boss : MonoBehaviour
             {
                 HPONE = 0;  
                 phase += 1;
-                attackCooldown = 0.02f;
+                attackCooldown = 0.07f;
                 circleCount = 30;
                 BossPhase1.Stop();
                 BossPhase2.loop = true;

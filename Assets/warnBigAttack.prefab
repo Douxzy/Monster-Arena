@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BigAttack: {fileID: 7268557758609171383, guid: dacaab66a4754eb4ba9609d2bd57d567, type: 3}
-  lifetime: 3
+  lifetime: 1.5
 --- !u!82 &1863094910373946548
 AudioSource:
   m_ObjectHideFlags: 0

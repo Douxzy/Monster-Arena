@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     private Vector3 InitializationLocalScale;
     void Start()
     {
+        transform.position = new Vector2(0.1f, -6f);
         audioSource = GetComponent<AudioSource>();
         InitializationLocalScale = LifeBar.localScale;
 

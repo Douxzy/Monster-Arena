@@ -197,7 +197,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 2
   field of view: 150
-  orthographic: 0
+  orthographic: 1
   orthographic size: 7
   m_Depth: -1
   m_CullingMask:
@@ -398,9 +398,9 @@ RectTransform:
   - {fileID: 208326370}
   m_Father: {fileID: 770399560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1000}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 80}
   m_SizeDelta: {x: 610, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &253534825
@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1855212134}
-  moveSpeed: 5
+  moveSpeed: 30
   Sword: {fileID: 829494919}
   LifeBar: {fileID: 1156770110}
   att: 100

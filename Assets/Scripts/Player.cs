@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textMeshPro;
 
+    [SerializeField]
+    private AudioSource Death;
+
     private Vector3 InitializationLocalScale;
     void Start()
     {
@@ -164,7 +167,15 @@ public class Player : MonoBehaviour
         Debug.Log("Game Over !");
         moveSpeed = 0;
         this.enabled = false;
+        Death.Play();
         animator.SetTrigger("IsDead");
+
+        if (m_Rigidbody != null)
+        {
+            m_Rigidbody.velocity = Vector2.zero;
+            m_Rigidbody.isKinematic = true;
+        }
+
         yield return new WaitForSeconds(2f); // Attendre 2 secondes avant de charger la scène
         
         SceneManager.LoadScene("GameOver");

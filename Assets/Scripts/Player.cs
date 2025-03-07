@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 {
     private AudioSource audioSource;
     private Vector2 m_Input;
+    private bool isActive = false;
 
     public Animator animator;
     [SerializeField]
@@ -167,7 +168,12 @@ public class Player : MonoBehaviour
         Debug.Log("Game Over !");
         moveSpeed = 0;
         this.enabled = false;
-        Death.Play();
+
+        if (!isActive) {
+            Death.Play();
+            isActive = true;
+        }
+
         animator.SetTrigger("IsDead");
 
         if (m_Rigidbody != null)
